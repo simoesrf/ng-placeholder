@@ -1,0 +1,51 @@
+{
+  "name": "ng-placeholder",
+  "version": "0.0.1",
+  "description": "A simple directive that place a template while a specific directive loads.",
+  "main": "./dist/ng-placeholder.js",
+  "typings": "./dist/ng-placeholder.d.ts",
+  "contributors": [
+    "Rui Simões <rfsimoes@outlook.pt>"
+  ],
+  "keywords": [
+    "angular",
+    "placeholder"
+  ],
+  "bugs": {
+    "url": "https://github.com/rfskitles/ng-placeholder/issues"
+  },
+  "author": {
+    "name": "Rui Simões",
+    "email": "rfsimoes@outlook.pt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rfskitles/ng-placeholder.git"
+  },
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-animate": "^1.5.8"
+  },
+  "devDependencies": {
+    "jasmine-core": "^2.5.2",
+    "karma": "^1.3.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage": "^1.1.1",
+    "karma-jasmine": "^1.0.2",
+    "karma-phantomjs-launcher": "^1.0.2",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-spec-reporter": "0.0.26",
+    "karma-webpack": "^1.8.0",
+    "phantomjs-prebuilt": "^2.1.12",
+    "source-map": "^0.5.6",
+    "ts-loader": "^0.8.2",
+    "tsd": "^0.6.5",
+    "typescript": "^2.0.3",
+    "webpack": "^1.13.2",
+    "webpack-uglify-js-plugin": "^1.1.9"
+  },
+  "scripts": {
+    "install": "tsd install angular && tsd install angular-animate",
+    "start": "webpack"
+  }
+}

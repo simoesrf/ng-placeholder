@@ -1,0 +1,24 @@
+{
+  "name": "ng-placeholder",
+  "version": "0.0.1",
+  "description": "",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:rfskitles/ng-placeholder.git"
+  },
+  "keyword": [],
+  "main": [
+    "dist/ng-placeholder.js"
+  ],
+  "ignore": [
+    "src",
+    ".gitignore",
+    "package.json",
+    "README.md"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-animate": "^1.5.8"
+  }
+}

@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "module": "amd",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "pretty": true,
+        "charset": "utf8"
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}
