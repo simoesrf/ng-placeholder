@@ -46,3 +46,5 @@ export function PlaceholderDirective($animate: angular.animate.IAnimateService, 
         }
     }
 }
+
+PlaceholderDirective.$inject = ['$animate', 'NgPlaceholderService'];

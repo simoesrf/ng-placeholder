@@ -1,36 +1,24 @@
 module.exports = function (config) {
-    config.set({
-        // ... normal karma configuration
-        basePath: '.',
-
-        files: [
-            // all files ending in "_test"
-            { pattern: 'test/*_test.js', watched: false },
-            { pattern: 'test/**/*_test.js', watched: false }
-            // each file acts as entry point for the webpack configuration
-        ],
-
-        preprocessors: {
-            'test/*_test.js': ['webpack'],
-            'test/**/*_test.js': ['webpack']
-        },
-
-        webpack: {
-
-        },
-
-        frameworks: ['jasmine'],
-
-        browsers : ['PhantomJS'],
-
-        webpackMiddleware: {
-            // webpack-dev-middleware configuration
-            // i. e.
-            stats: 'errors-only'
-        },
-        plugins: [
-            'karma-spec-reporter',
-            'karma-chrome-launcher'
-        ]
-    });
+  config.set({
+    basePath: '.',
+    files: [
+      { pattern: './dev_configs/karma-shim.js', watched: false }
+    ],
+    preprocessors: {
+      './dev_configs/karma-shim.js': ['webpack', 'sourcemap']
+    },
+    webpack: require('./dev_configs/webpack.test'),
+    frameworks: ['jasmine'],
+    browsers: ['PhantomJS'],
+    reporters: ['dots'],
+    webpackMiddleware: {
+      stats: 'errors-only'
+    },
+    plugins: [
+      'karma-jasmine',
+      'karma-webpack',
+      'karma-phantomjs-launcher',
+      'karma-sourcemap-loader'
+    ]
+  });
 };

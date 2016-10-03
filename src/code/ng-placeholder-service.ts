@@ -110,3 +110,5 @@ export class PlaceholderService {
     }
 
 }
+
+PlaceholderService.getInstant.$inject = ['$templateCache', 'NgPlaceholderConfig'];
