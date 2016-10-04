@@ -65,7 +65,7 @@
 	    var PlaceholderProvider = (function () {
 	        function PlaceholderProvider() {
 	            this.configs = new Array();
-	            this.customClass = 'ng-placeholder-hide';
+	            this.customClass = 'ng-cloak';
 	            this.defaultConfig = {
 	                template_id: 'default',
 	                template_html: '<p>Loading...</p>',
