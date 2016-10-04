@@ -1,21 +1,28 @@
 var webpack = require('webpack');
-var merge   = require('webpack-merge');
-var common  = require('./dev_configs/webpack.common');
+var merge = require('webpack-merge');
+var common = require('./dev_configs/webpack.common');
 
 module.exports = merge(
     common,
     {
         devtool: 'source-map',
-        entry: './src/code/ng-placeholder.ts',
+        entry: {
+            "ng-placeholder": './src/code/ng-placeholder.ts',
+            "ng-placeholder.min": './src/code/ng-placeholder.ts',
+        },
         output: {
-            filename: './dist/ng-placeholder.js'
+            path: "./dist",
+            filename: '[name].js'
         },
         watch: true,
         // Add minification
         plugins: [
             new webpack.NoErrorsPlugin(),
             new webpack.optimize.DedupePlugin(),
-            new webpack.optimize.UglifyJsPlugin()
+            new webpack.optimize.UglifyJsPlugin({
+                include: /\.min\.js$/,
+                minimize: true
+            })
         ],
     }
 );
