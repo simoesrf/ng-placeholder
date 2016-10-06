@@ -44,7 +44,7 @@
     "webpack-uglify-js-plugin": "^1.1.9"
   },
   "scripts": {
-    "install": "tsd install angular && tsd install angular-animate && tsd install jasmine",
+    "install": "tsd install angular && tsd install angular-mocks && tsd install jasmine",
     "start": "webpack",
     "test": "karma start karma.config.js"
   }

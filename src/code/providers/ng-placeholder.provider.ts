@@ -45,4 +45,3 @@ export class PlaceholderProvider implements Placeholder.IPlaceholderConfigProvid
         return new PlaceholderConfigService(this.configs, this.defaultConfig, this.active, this.customClass);
     }
 }
-

@@ -35,6 +35,7 @@ export function PlaceholderDirective(
                         childrens[index].removeClass(className);
                     }
                     template.remove();
+                    element.removeAttr('ng-placeholder').removeAttr('template_id').removeAttr('show-until');
                 }
             });
         }
