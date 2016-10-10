@@ -42,4 +42,8 @@ declare namespace Placeholder {
         templateRepeats: string;
         showUntil: string;
     }
+
+    export interface IModuleRunService {
+        disableDirective(): void;
+    }
 }
