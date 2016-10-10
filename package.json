@@ -46,6 +46,7 @@
   "scripts": {
     "install": "tsd install angular && tsd install angular-mocks && tsd install jasmine",
     "start": "webpack",
-    "test": "karma start karma.config.js"
+    "test": "karma start karma.config.js --single-run",
+    "build-tests": "karma start karma.config.js"
   }
 }
