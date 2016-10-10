@@ -1,6 +1,6 @@
 var webpack = require('webpack');
 var merge = require('webpack-merge');
-var common = require('./dev_configs/webpack.common');
+var common = require('./configs/webpack.common');
 
 module.exports = merge(
     common,

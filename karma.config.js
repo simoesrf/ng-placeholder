@@ -2,12 +2,12 @@ module.exports = function (config) {
   config.set({
     basePath: '.',
     files: [
-      { pattern: './dev_configs/karma-shim.js', watched: false }
+      { pattern: './configs/karma-shim.js', watched: false }
     ],
     preprocessors: {
-      './dev_configs/karma-shim.js': ['webpack', 'sourcemap']
+      './configs/karma-shim.js': ['webpack', 'sourcemap']
     },
-    webpack: require('./dev_configs/webpack.test'),
+    webpack: require('./configs/webpack.test'),
     frameworks: ['jasmine'],
     browsers: ['PhantomJS'],
     reporters: ['dots'],
