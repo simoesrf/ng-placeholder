@@ -37,14 +37,14 @@
     "phantomjs-prebuilt": "^2.1.12",
     "source-map": "^0.5.6",
     "ts-loader": "^0.8.2",
-    "tsd": "^0.6.5",
     "typescript": "^2.0.3",
+    "typings": "^1.4.0",
     "webpack": "^1.13.2",
     "webpack-merge": "^0.14.1",
     "webpack-uglify-js-plugin": "^1.1.9"
   },
   "scripts": {
-    "install": "tsd install angular && tsd install angular-mocks && tsd install jasmine",
+    "postinstall": "typings install",
     "start": "webpack",
     "test": "karma start karma.config.js --single-run",
     "build-tests": "karma start karma.config.js"
