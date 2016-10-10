@@ -1,6 +1,6 @@
 export class PlaceholderService implements Placeholder.IPlaceholderService {
 
-    private static instant: PlaceholderService;
+    private static instance: PlaceholderService;
     private configs: Array<Placeholder.ICompiledConfigModel>;
     private defaultConfig: Placeholder.ICompiledConfigModel;
     private className: string;
@@ -12,15 +12,15 @@ export class PlaceholderService implements Placeholder.IPlaceholderService {
     }
 
     public static getInstant($templateCache: ng.ITemplateCacheService, placeholderConfigs: Placeholder.IPlaceholderConfigService) {
-        if (angular.isUndefined(PlaceholderService.instant)) {
+        if (angular.isUndefined(PlaceholderService.instance)) {
             const defaultConfig = placeholderConfigs.getDefaultTemplate();
             const compiledConfigs = PlaceholderService.compileConfigs(placeholderConfigs.getTemplates(), $templateCache);
             const compiledDefaultConfigs = PlaceholderService.buildConfig(defaultConfig.template_id, defaultConfig.template_html, defaultConfig.template_repeats);
 
-            PlaceholderService.instant = new PlaceholderService(compiledConfigs, compiledDefaultConfigs, placeholderConfigs.getClassName());
+            PlaceholderService.instance = new PlaceholderService(compiledConfigs, compiledDefaultConfigs, placeholderConfigs.getClassName());
         }
 
-        return PlaceholderService.instant;
+        return PlaceholderService.instance;
     }
 
     private static getTemplateHtml(template_path: string, templateCache: ng.ITemplateCacheService): string {
@@ -82,7 +82,7 @@ export class PlaceholderService implements Placeholder.IPlaceholderService {
         return angular.element(template);
     }
 
-    public getTemplate(template_id: string, template_repeats: number): JQuery {
+    public getTemplate(template_id: string, template_repeats: number = 1): JQuery {
         let self = this;
         let template: JQuery = self.defaultConfig.template_compiled;
 

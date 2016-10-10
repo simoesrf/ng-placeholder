@@ -10,7 +10,7 @@ module.exports = function (config) {
     webpack: require('./dev_configs/webpack.test'),
     frameworks: ['jasmine'],
     browsers: ['PhantomJS'],
-    reporters: ['dots', 'progress'],
+    reporters: ['dots'],
     webpackMiddleware: {
       stats: 'errors-only'
     },

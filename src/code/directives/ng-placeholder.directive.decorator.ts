@@ -1,13 +1,7 @@
-export class PlaceholderDirectiveDecorator {
+export class PlaceholderDirectiveDecorator implements Placeholder.IPlaceholderDirectiveDecorator {
 
-    constructor ($delegate: any, placeholderConfig: Placeholder.IPlaceholderConfigService) {
-        const config = placeholderConfig.isEnabled();
-
-        if (!config) {
-                $delegate = {};
-            }
-
-        return $delegate;
+    constructor($delegate: any, placeholderConfig: Placeholder.IPlaceholderConfigService) {
+        return placeholderConfig.isEnabled() ? $delegate : {};
     }
 
 }

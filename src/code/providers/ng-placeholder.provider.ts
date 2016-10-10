@@ -1,10 +1,10 @@
-import { PlaceholderConfigService } from './placeholder-config-service.provider';
+import { PlaceholderConfigService } from './ng-placeholder-config-service.provider';
 
 export class PlaceholderProvider implements Placeholder.IPlaceholderConfigProvider {
 
     private configs: Array<Placeholder.IConfigModel>;
     private defaultConfig: Placeholder.IConfigModel;
-    private active: boolean;
+    private active: boolean = true;
     private customClass: string;
 
     constructor() {
@@ -22,7 +22,7 @@ export class PlaceholderProvider implements Placeholder.IPlaceholderConfigProvid
     }
 
     setConfigs(configs: Array<Placeholder.IConfigModel>): void {
-        this.configs = configs;
+        this.configs = this.configs.concat(configs);
     }
 
     setCustomClass(className: string): void {

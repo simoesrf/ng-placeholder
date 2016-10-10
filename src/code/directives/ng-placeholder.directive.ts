@@ -32,10 +32,13 @@ export function PlaceholderDirective(
             attrs.$observe('showUntil', (value: string) => {
                 if (value === 'true') {
                     for (let index = 0; index < childrens.length; index++) {
+                        const parent = childrens[index].parent();
                         childrens[index].removeClass(className);
+                        parent.removeAttr('ng-placeholder');
+                        parent.removeAttr('template-id');
+                        parent.removeAttr('template-repeats');
                     }
                     template.remove();
-                    // element.removeAttr('ng-placeholder').removeAttr('template_id').removeAttr('show-until');
                 }
             });
         }

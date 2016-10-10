@@ -33,7 +33,7 @@ declare namespace Placeholder {
     }
 
     export interface IPlaceholderService {
-        getTemplate(template_id: string, template_repeats: number): JQuery;
+        getTemplate(template_id: string, template_repeats?: number): JQuery;
         getClassName(): string;
     }
 
@@ -46,4 +46,6 @@ declare namespace Placeholder {
     export interface IModuleRunService {
         disableDirective(): void;
     }
+
+    export interface IPlaceholderDirectiveDecorator { }
 }
