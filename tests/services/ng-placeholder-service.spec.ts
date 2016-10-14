@@ -10,7 +10,7 @@ describe('When use PlaceholderService', () => {
         angular.mock.module('ng-placeholder');
 
         angular.mock.module([
-            'NgPlaceholderConfigProvider',
+            'ngPlaceholderConfigProvider',
             (_PlaceholderConfigProvider_: Placeholder.IPlaceholderConfigProvider) => {
                 placeholderConfigProvider = _PlaceholderConfigProvider_;
                 placeholderConfigProvider.setCustomClass('custom-class');
@@ -23,8 +23,8 @@ describe('When use PlaceholderService', () => {
 
         inject([
             '$templateCache',
-            'NgPlaceholderConfig',
-            'NgPlaceholderService',
+            'ngPlaceholderConfig',
+            'ngPlaceholderService',
             function (
                 _$templateCache_: ng.ITemplateCacheService,
                 _PlaceholderConfigService_: Placeholder.IPlaceholderConfigService,

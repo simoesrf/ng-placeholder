@@ -6,4 +6,4 @@ export class PlaceholderDirectiveDecorator implements Placeholder.IPlaceholderDi
 
 }
 
-PlaceholderDirectiveDecorator.$inject = ['$delegate', 'NgPlaceholderConfig'];
+PlaceholderDirectiveDecorator.$inject = ['$delegate', 'ngPlaceholderConfig'];

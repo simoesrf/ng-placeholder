@@ -18,18 +18,18 @@ describe('When use decorator to disable ngPlaceholderDirective', () => {
         inject([
             '$rootScope',
             '$compile',
-            'NgPlaceholderConfig',
-            'NgPlaceholderService',
+            'ngPlaceholderConfig',
+            'ngPlaceholderService',
             (
                 _$rootScope_: ng.IRootScopeService,
                 _$compile_: ng.ICompileService,
-                _NgPlaceholderConfigService_: Placeholder.IPlaceholderConfigService,
-                _NgPlaceholderService_: Placeholder.IPlaceholderService
+                _ngPlaceholderConfigService_: Placeholder.IPlaceholderConfigService,
+                _ngPlaceholderService_: Placeholder.IPlaceholderService
             ) => {
                 $scope = _$rootScope_.$new();
                 $compile = _$compile_;
-                placeholderConfigService = _NgPlaceholderConfigService_;
-                placeholderService = _NgPlaceholderService_;
+                placeholderConfigService = _ngPlaceholderConfigService_;
+                placeholderService = _ngPlaceholderService_;
             }
         ]);
     });

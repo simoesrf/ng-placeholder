@@ -94,4 +94,4 @@ export class PlaceholderService implements Placeholder.IPlaceholderService {
 
 }
 
-PlaceholderService.$inject = ['$templateCache', 'NgPlaceholderConfig'];
+PlaceholderService.$inject = ['$templateCache', 'ngPlaceholderConfig'];

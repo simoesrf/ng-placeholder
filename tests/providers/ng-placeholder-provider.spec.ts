@@ -6,7 +6,7 @@ describe('When use PlaceholderConfigProvider', () => {
 
     beforeEach(() => {
         angular.mock.module([
-            'NgPlaceholderConfigProvider',
+            'ngPlaceholderConfigProvider',
             (_PlaceholderConfigProvider_: Placeholder.IPlaceholderConfigProvider) => {
                 placeholderConfigProvider = _PlaceholderConfigProvider_;
                 placeholderConfigProvider.enable();
@@ -17,9 +17,9 @@ describe('When use PlaceholderConfigProvider', () => {
     describe('', () => {
         beforeEach(() => {
             inject([
-                'NgPlaceholderConfig',
-                (_NgPlaceholderConfigService_: Placeholder.IPlaceholderConfigService) => {
-                    placeholderConfigService = _NgPlaceholderConfigService_;
+                'ngPlaceholderConfig',
+                (_ngPlaceholderConfigService_: Placeholder.IPlaceholderConfigService) => {
+                    placeholderConfigService = _ngPlaceholderConfigService_;
                 }
             ]);
         });
@@ -71,7 +71,7 @@ describe('When use PlaceholderConfigProvider with configuraitons', () => {
 
     beforeEach(() => {
         angular.mock.module([
-            'NgPlaceholderConfigProvider',
+            'ngPlaceholderConfigProvider',
             (_PlaceholderConfigProvider_: Placeholder.IPlaceholderConfigProvider) => {
                 placeholderConfigProvider = _PlaceholderConfigProvider_;
                 placeholderConfigProvider.addConfig({
@@ -102,9 +102,9 @@ describe('When use PlaceholderConfigProvider with configuraitons', () => {
 
     beforeEach(() => {
         inject([
-            'NgPlaceholderConfig',
-            (_NgPlaceholderConfigService_: Placeholder.IPlaceholderConfigService) => {
-                placeholderConfigService = _NgPlaceholderConfigService_;
+            'ngPlaceholderConfig',
+            (_ngPlaceholderConfigService_: Placeholder.IPlaceholderConfigService) => {
+                placeholderConfigService = _ngPlaceholderConfigService_;
             }
         ]);
     });

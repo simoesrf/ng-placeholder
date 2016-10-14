@@ -42,4 +42,4 @@ export function PlaceholderDirective(
     }
 }
 
-PlaceholderDirective.$inject = ['NgPlaceholderService'];
+PlaceholderDirective.$inject = ['ngPlaceholderService'];

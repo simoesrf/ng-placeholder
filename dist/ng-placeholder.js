@@ -49,8 +49,8 @@
 	    var Placeholder;
 	    (function (Placeholder) {
 	        angular.module('ng-placeholder', []);
-	        angular.module('ng-placeholder').provider('NgPlaceholderConfig', ng_placeholder_provider_1.PlaceholderProvider);
-	        angular.module('ng-placeholder').service('NgPlaceholderService', ng_placeholder_service_1.PlaceholderService);
+	        angular.module('ng-placeholder').provider('ngPlaceholderConfig', ng_placeholder_provider_1.PlaceholderProvider);
+	        angular.module('ng-placeholder').service('ngPlaceholderService', ng_placeholder_service_1.PlaceholderService);
 	        angular.module('ng-placeholder').directive('ngPlaceholder', ng_placeholder_directive_1.PlaceholderDirective);
 	        angular.module('ng-placeholder').decorator('ngPlaceholderDirective', ng_placeholder_directive_decorator_1.PlaceholderDirectiveDecorator);
 	    })(Placeholder = exports.Placeholder || (exports.Placeholder = {}));
@@ -211,7 +211,7 @@
 	        return PlaceholderService;
 	    }());
 	    exports.PlaceholderService = PlaceholderService;
-	    PlaceholderService.$inject = ['$templateCache', 'NgPlaceholderConfig'];
+	    PlaceholderService.$inject = ['$templateCache', 'ngPlaceholderConfig'];
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 
@@ -232,8 +232,8 @@
 	                var className = placeholderService.getClassName();
 	                var childrens;
 	                transcludeFn(scope, function transcludeFunction(clone, childScope) {
-	                    childrens = clone.children() || [];
-	                    for (var index = 0; childrens.length && index < childrens.length; index++) {
+	                    childrens = clone.children();
+	                    for (var index = 0; index < childrens.length; index++) {
 	                        childrens[index] = angular.element(childrens[index]);
 	                        childrens[index].addClass(className);
 	                    }
@@ -252,7 +252,7 @@
 	        };
 	    }
 	    exports.PlaceholderDirective = PlaceholderDirective;
-	    PlaceholderDirective.$inject = ['NgPlaceholderService'];
+	    PlaceholderDirective.$inject = ['ngPlaceholderService'];
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 
@@ -269,7 +269,7 @@
 	        return PlaceholderDirectiveDecorator;
 	    }());
 	    exports.PlaceholderDirectiveDecorator = PlaceholderDirectiveDecorator;
-	    PlaceholderDirectiveDecorator.$inject = ['$delegate', 'NgPlaceholderConfig'];
+	    PlaceholderDirectiveDecorator.$inject = ['$delegate', 'ngPlaceholderConfig'];
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 
