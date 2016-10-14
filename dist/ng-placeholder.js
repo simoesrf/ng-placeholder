@@ -44,15 +44,15 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(1), __webpack_require__(3), __webpack_require__(4), __webpack_require__(5)], __WEBPACK_AMD_DEFINE_RESULT__ = function (require, exports, ng_placeholder_provider_1, ng_placeholder_service_1, ng_placeholder_directive_1, ng_placeholder_directive_decorator_ts_1) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(1), __webpack_require__(3), __webpack_require__(4), __webpack_require__(5)], __WEBPACK_AMD_DEFINE_RESULT__ = function (require, exports, ng_placeholder_provider_1, ng_placeholder_service_1, ng_placeholder_directive_1, ng_placeholder_directive_decorator_1) {
 	    "use strict";
 	    var Placeholder;
 	    (function (Placeholder) {
 	        angular.module('ng-placeholder', []);
 	        angular.module('ng-placeholder').provider('NgPlaceholderConfig', ng_placeholder_provider_1.PlaceholderProvider);
-	        angular.module('ng-placeholder').service('NgPlaceholderService', ng_placeholder_service_1.PlaceholderService.getInstant);
+	        angular.module('ng-placeholder').service('NgPlaceholderService', ng_placeholder_service_1.PlaceholderService);
 	        angular.module('ng-placeholder').directive('ngPlaceholder', ng_placeholder_directive_1.PlaceholderDirective);
-	        angular.module('ng-placeholder').decorator('ngPlaceholderDirective', ng_placeholder_directive_decorator_ts_1.PlaceholderDirectiveDecorator);
+	        angular.module('ng-placeholder').decorator('ngPlaceholderDirective', ng_placeholder_directive_decorator_1.PlaceholderDirectiveDecorator);
 	    })(Placeholder = exports.Placeholder || (exports.Placeholder = {}));
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
@@ -142,24 +142,18 @@
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_RESULT__ = function (require, exports) {
 	    "use strict";
 	    var PlaceholderService = (function () {
-	        function PlaceholderService(compiledConfigs, defaultCompiledConfig, className) {
+	        function PlaceholderService($templateCache, placeholderConfigs) {
+	            var defaultConfig = placeholderConfigs.getDefaultTemplate();
+	            var compiledConfigs = this.compileConfigs(placeholderConfigs.getTemplates(), $templateCache);
+	            var compiledDefaultConfigs = this.buildConfig(defaultConfig.template_id, defaultConfig.template_html, defaultConfig.template_repeats);
 	            this.configs = compiledConfigs;
-	            this.defaultConfig = defaultCompiledConfig;
-	            this.className = className;
+	            this.defaultConfig = compiledDefaultConfigs;
+	            this.className = placeholderConfigs.getClassName();
 	        }
-	        PlaceholderService.getInstant = function ($templateCache, placeholderConfigs) {
-	            if (angular.isUndefined(PlaceholderService.instance)) {
-	                var defaultConfig = placeholderConfigs.getDefaultTemplate();
-	                var compiledConfigs = PlaceholderService.compileConfigs(placeholderConfigs.getTemplates(), $templateCache);
-	                var compiledDefaultConfigs = PlaceholderService.buildConfig(defaultConfig.template_id, defaultConfig.template_html, defaultConfig.template_repeats);
-	                PlaceholderService.instance = new PlaceholderService(compiledConfigs, compiledDefaultConfigs, placeholderConfigs.getClassName());
-	            }
-	            return PlaceholderService.instance;
-	        };
-	        PlaceholderService.getTemplateHtml = function (template_path, templateCache) {
+	        PlaceholderService.prototype.getTemplateHtml = function (template_path, templateCache) {
 	            return templateCache.get(template_path);
 	        };
-	        PlaceholderService.repeatTemplate = function (template_html, template_repeat) {
+	        PlaceholderService.prototype.repeatDefaultTemplate = function (template_html, template_repeat) {
 	            var html = angular.copy(template_html);
 	            template_repeat = template_repeat - 1;
 	            for (var index = 0; index < template_repeat; index++) {
@@ -167,8 +161,8 @@
 	            }
 	            return html;
 	        };
-	        PlaceholderService.buildConfig = function (template_id, template_html, template_repeat) {
-	            var template = PlaceholderService.repeatTemplate(template_html, template_repeat);
+	        PlaceholderService.prototype.buildConfig = function (template_id, template_html, template_repeat) {
+	            var template = this.repeatDefaultTemplate(template_html, template_repeat);
 	            return {
 	                template_id: template_id,
 	                template_html: template_html,
@@ -176,7 +170,8 @@
 	                template_compiled: angular.element(template)
 	            };
 	        };
-	        PlaceholderService.compileConfigs = function (configs, $templateCache) {
+	        PlaceholderService.prototype.compileConfigs = function (configs, $templateCache) {
+	            var self = this;
 	            var compiledConfigs = new Array();
 	            var compiledConfig;
 	            var template_id;
@@ -185,9 +180,9 @@
 	            var template_repeat;
 	            configs.forEach(function iterator(config) {
 	                template_id = config.template_id;
-	                template_html = PlaceholderService.getTemplateHtml(config.template_path, $templateCache) || config.template_html;
+	                template_html = self.getTemplateHtml(config.template_path, $templateCache) || config.template_html;
 	                template_repeat = config.template_repeats || 1;
-	                compiledConfig = PlaceholderService.buildConfig(template_id, template_html, template_repeat);
+	                compiledConfig = self.buildConfig(template_id, template_html, template_repeat);
 	                compiledConfigs.push(compiledConfig);
 	            });
 	            return compiledConfigs;
@@ -196,11 +191,10 @@
 	            if (config.template_repeat === template_repeats || angular.isUndefined(template_repeats)) {
 	                return config.template_compiled;
 	            }
-	            var template = PlaceholderService.repeatTemplate(config.template_html, template_repeats);
+	            var template = this.repeatDefaultTemplate(config.template_html, template_repeats);
 	            return angular.element(template);
 	        };
 	        PlaceholderService.prototype.getTemplate = function (template_id, template_repeats) {
-	            if (template_repeats === void 0) { template_repeats = 1; }
 	            var self = this;
 	            var template = self.defaultConfig.template_compiled;
 	            self.configs.forEach(function configIterator(config) {
@@ -217,7 +211,7 @@
 	        return PlaceholderService;
 	    }());
 	    exports.PlaceholderService = PlaceholderService;
-	    PlaceholderService.getInstant.$inject = ['$templateCache', 'NgPlaceholderConfig'];
+	    PlaceholderService.$inject = ['$templateCache', 'NgPlaceholderConfig'];
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 
@@ -229,6 +223,7 @@
 	    "use strict";
 	    function PlaceholderDirective(placeholderService) {
 	        return {
+	            restrict: 'AECM',
 	            transclude: 'element',
 	            link: function linkFunction(scope, element, attrs, controller, transcludeFn) {
 	                var template_id = attrs.templateId;
@@ -236,23 +231,19 @@
 	                var template = placeholderService.getTemplate(template_id, template_repeats);
 	                var className = placeholderService.getClassName();
 	                var childrens;
-	                transcludeFn(scope, function transcludeFunction(clone, scope) {
-	                    childrens = clone.children();
-	                    for (var index = 0; index < childrens.length; index++) {
+	                transcludeFn(scope, function transcludeFunction(clone, childScope) {
+	                    childrens = clone.children() || [];
+	                    for (var index = 0; childrens.length && index < childrens.length; index++) {
 	                        childrens[index] = angular.element(childrens[index]);
 	                        childrens[index].addClass(className);
 	                    }
-	                    clone.append(template);
-	                    element.replaceWith(clone);
+	                    element.after(template);
+	                    element.after(clone);
 	                });
 	                attrs.$observe('showUntil', function (value) {
 	                    if (value === 'true') {
 	                        for (var index = 0; index < childrens.length; index++) {
-	                            var parent_1 = childrens[index].parent();
 	                            childrens[index].removeClass(className);
-	                            parent_1.removeAttr('ng-placeholder');
-	                            parent_1.removeAttr('template-id');
-	                            parent_1.removeAttr('template-repeats');
 	                        }
 	                        template.remove();
 	                    }

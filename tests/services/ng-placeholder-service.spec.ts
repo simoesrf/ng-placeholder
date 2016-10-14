@@ -1,4 +1,4 @@
-import {PlaceholderService} from '../../code/services/ng-placeholder.service';
+import {PlaceholderService} from '../../src/services/ng-placeholder.service';
 
 describe('When use PlaceholderService', () => {
     let placeholderConfigProvider: Placeholder.IPlaceholderConfigProvider;
@@ -38,9 +38,13 @@ describe('When use PlaceholderService', () => {
     });
 
     it('Should return the template with repeated 1 time', () => {
-        const template = placeholderService.getTemplate('test');
+        let template = placeholderService.getTemplate('test');
         expect(template.length).toBe(1);
         expect(template[0].innerHTML).toBe('This is a unit test');
+
+        template = placeholderService.getTemplate('teste');
+        expect(template.length).toBe(1);
+        expect(template[0].innerHTML).toBe('Loading...');
     });
 
     it('Should return the template with repeated n times', () => {
@@ -60,18 +64,4 @@ describe('When use PlaceholderService', () => {
     it('Should return class name', () => {
         expect(placeholderService.getClassName()).toBe('custom-class');
     });
-
-    describe('Test singleton', () => {
-
-        it('Should load PlaceholderService with initial configurations.', () => {
-            placeholderConfigProvider.setCustomClass('should-not-show');
-            const placeholderService = PlaceholderService.getInstant($templateCache, placeholderConfigProvider.$get());
-
-            expect(placeholderService instanceof PlaceholderService).toBeTruthy();
-            expect(placeholderConfigProvider.$get().constructor.name).toBe('PlaceholderConfigService');
-            expect(placeholderConfigProvider.$get().getClassName()).toBe('should-not-show');
-            expect(placeholderService.getClassName()).toBe('custom-class');
-        });
-    });
-
 });

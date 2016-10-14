@@ -3,6 +3,7 @@ export function PlaceholderDirective(
 ): ng.IDirective {
 
     return {
+        restrict: 'AECM',
         transclude: 'element',
         link: function linkFunction(
             scope: ng.IScope,
@@ -17,7 +18,7 @@ export function PlaceholderDirective(
             const className: string = placeholderService.getClassName();
             let childrens: any;
 
-            transcludeFn(scope, function transcludeFunction(clone: JQuery, scope: ng.IScope): void {
+            transcludeFn(scope, function transcludeFunction(clone: JQuery, childScope: ng.IScope): void {
                 childrens = clone.children();
 
                 for (let index = 0; index < childrens.length; index++) {
@@ -25,18 +26,14 @@ export function PlaceholderDirective(
                     childrens[index].addClass(className);
                 }
 
-                clone.append(template);
-                element.replaceWith(clone);
+                element.after(template);
+                element.after(clone);
             });
 
             attrs.$observe('showUntil', (value: string) => {
                 if (value === 'true') {
                     for (let index = 0; index < childrens.length; index++) {
-                        const parent = childrens[index].parent();
                         childrens[index].removeClass(className);
-                        parent.removeAttr('ng-placeholder');
-                        parent.removeAttr('template-id');
-                        parent.removeAttr('template-repeats');
                     }
                     template.remove();
                 }
