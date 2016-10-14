@@ -1,24 +1,26 @@
 module.exports = function (config) {
   config.set({
-    basePath: '.',
+    // basePath: '.',
     files: [
-      { pattern: './configs/karma-shim.js', watched: false }
+      {
+        pattern: './node_modules/angular/angular.js',
+        watched: false
+      },
+      {
+        pattern: './node_modules/angular-mocks/angular-mocks.js',
+        watched: false },
+      {
+        pattern: './src/**/*.ts',
+        watched: true },
+      {
+        pattern: './tests/**/*.ts',
+        watched: true }
     ],
     preprocessors: {
-      './configs/karma-shim.js': ['webpack', 'sourcemap']
+      '**/*.ts': ['karma-typescript']
     },
-    webpack: require('./configs/webpack.test'),
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine', 'karma-typescript'],
     browsers: ['PhantomJS'],
-    reporters: ['dots'],
-    webpackMiddleware: {
-      stats: 'errors-only'
-    },
-    plugins: [
-      'karma-jasmine',
-      'karma-webpack',
-      'karma-phantomjs-launcher',
-      'karma-sourcemap-loader'
-    ]
+    reporters: ['dots', 'karma-typescript']
   });
 };

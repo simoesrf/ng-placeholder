@@ -9,6 +9,7 @@ describe('When use PlaceholderConfigProvider', () => {
             'NgPlaceholderConfigProvider',
             (_PlaceholderConfigProvider_: Placeholder.IPlaceholderConfigProvider) => {
                 placeholderConfigProvider = _PlaceholderConfigProvider_;
+                placeholderConfigProvider.enable();
             }
         ]);
     });
