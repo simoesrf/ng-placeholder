@@ -6,9 +6,12 @@ A simple directive that place a template while a specific directive loads.
 [![Build Status](https://travis-ci.org/rfskitles/ng-placeholder.svg?branch=master)](https://travis-ci.org/rfskitles/ng-placeholder)
 
 ### Configuration
+To configure the module, you just need to set some information in you applicaiton config.
 
 ```
-angular.module('app').config(['ngPlaceholderConfigProvider', function (placeholderConfigProvider) {
+angular.module('your-app', ['ng-placeholder']);
+
+angular.module('your-app').config(['ngPlaceholderConfigProvider', function (placeholderConfigProvider) {
     /* You can set a list with all the configurations.
      *
      * Object params:
@@ -67,4 +70,33 @@ angular.module('app').config(['ngPlaceholderConfigProvider', function (placehold
      */
     placeholderConfigProvider.setCustomClass('my-custom-class');
 }]);
+```
+
+### How to use it.
+To use it, you just need to set the directive in your directive template.
+
+```
+angular.module('your-app').directive('yourDirective', [
+    function () {
+        return {
+            controller: function () {
+                var self = this;
+                self.isReady = false;
+
+                requestSomeData.then(function () {
+                    ...
+                    self.isReady = true;
+                }).catch(function () {
+                    ...
+                    self.isReady = true;
+                })
+            },
+            controllerAs: 'ctrl',
+            template: `
+                <div ng-placeholder template-id="templateid3" show-until="{{ctrl.isReady}}">
+                    Div content that should be present.
+                </div>`
+        }
+    }
+]);
 ```
