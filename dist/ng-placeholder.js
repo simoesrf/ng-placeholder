@@ -203,7 +203,7 @@
 	                    return;
 	                }
 	            });
-	            return template;
+	            return angular.copy(template);
 	        };
 	        PlaceholderService.prototype.getClassName = function () {
 	            return this.className;
@@ -221,38 +221,28 @@
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_RESULT__ = function (require, exports) {
 	    "use strict";
-	    function PlaceholderDirective(placeholderService) {
+	    function PlaceholderDirective($animate, placeholderService) {
 	        return {
-	            restrict: 'AECM',
-	            transclude: 'element',
-	            link: function linkFunction(scope, element, attrs, controller, transcludeFn) {
-	                var template_id = attrs.templateId;
-	                var template_repeats = parseInt(attrs.templateRepeats, 10);
-	                var template = placeholderService.getTemplate(template_id, template_repeats);
+	            restrict: 'AE',
+	            priority: 2001,
+	            link: function (scope, element, attributes, controller, transclude) {
 	                var className = placeholderService.getClassName();
-	                var childrens;
-	                transcludeFn(scope, function transcludeFunction(clone, childScope) {
-	                    childrens = clone.children();
-	                    for (var index = 0; index < childrens.length; index++) {
-	                        childrens[index] = angular.element(childrens[index]);
-	                        childrens[index].addClass(className);
-	                    }
-	                    element.after(template);
-	                    element.after(clone);
-	                });
-	                attrs.$observe('showUntil', function (value) {
+	                var template_id = attributes.templateId;
+	                var template_repeats = parseInt(attributes.templateRepeats, 10);
+	                var template = placeholderService.getTemplate(template_id, template_repeats);
+	                $animate.addClass(element, className);
+	                $animate.enter(template, null, element);
+	                attributes.$observe('showUntil', function (value) {
 	                    if (value === 'true') {
-	                        for (var index = 0; index < childrens.length; index++) {
-	                            childrens[index].removeClass(className);
-	                        }
-	                        template.remove();
+	                        $animate.leave(template);
+	                        $animate.removeClass(element, className);
 	                    }
 	                });
 	            }
 	        };
 	    }
 	    exports.PlaceholderDirective = PlaceholderDirective;
-	    PlaceholderDirective.$inject = ['ngPlaceholderService'];
+	    PlaceholderDirective.$inject = ['$animate', 'ngPlaceholderService'];
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 

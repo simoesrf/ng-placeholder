@@ -85,7 +85,7 @@ export class PlaceholderService implements Placeholder.IPlaceholderService {
             }
         });
 
-        return template;
+        return angular.copy(template);
     }
 
     public getClassName(): string {

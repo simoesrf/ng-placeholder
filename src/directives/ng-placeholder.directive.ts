@@ -1,45 +1,35 @@
 export function PlaceholderDirective(
+    $animate: ng.animate.IAnimateService,
     placeholderService: Placeholder.IPlaceholderService
 ): ng.IDirective {
 
     return {
-        restrict: 'AECM',
-        transclude: 'element',
-        link: function linkFunction(
+        restrict: 'AE',
+        priority: 2001,
+        link: function (
             scope: ng.IScope,
             element: ng.IRootElementService,
-            attrs: Placeholder.INPScope,
-            controller: ng.IControllerProvider,
-            transcludeFn: ng.ITranscludeFunction
+            attributes: Placeholder.INPScope,
+            controller: ng.IController,
+            transclude: ng.ITranscludeFunction
         ) {
-            const template_id: string = attrs.templateId;
-            const template_repeats: number = parseInt(attrs.templateRepeats, 10);
-            const template: JQuery = placeholderService.getTemplate(template_id, template_repeats);
             const className: string = placeholderService.getClassName();
-            let childrens: any;
+            const template_id: string = attributes.templateId;
+            const template_repeats: number = parseInt(attributes.templateRepeats, 10);
+            let template: JQuery = placeholderService.getTemplate(template_id, template_repeats);
 
-            transcludeFn(scope, function transcludeFunction(clone: JQuery, childScope: ng.IScope): void {
-                childrens = clone.children();
+            $animate.addClass(element, className);
+            $animate.enter(template, null, element);
 
-                for (let index = 0; index < childrens.length; index++) {
-                    childrens[index] = angular.element(childrens[index]);
-                    childrens[index].addClass(className);
-                }
-
-                element.after(template);
-                element.after(clone);
-            });
-
-            attrs.$observe('showUntil', (value: string) => {
+            attributes.$observe('showUntil', (value: string) => {
                 if (value === 'true') {
-                    for (let index = 0; index < childrens.length; index++) {
-                        childrens[index].removeClass(className);
-                    }
-                    template.remove();
+                    $animate.leave(template);
+                    $animate.removeClass(element, className);
                 }
             });
+
         }
     }
 }
 
-PlaceholderDirective.$inject = ['ngPlaceholderService'];
+PlaceholderDirective.$inject = ['$animate', 'ngPlaceholderService'];
