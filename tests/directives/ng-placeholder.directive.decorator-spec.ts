@@ -26,7 +26,6 @@ describe('When use decorator to disable ngPlaceholderDirective', () => {
 
                 spyConfigServiceIsEnable = spyOn(placeholderConfigService, 'isEnabled');
                 spyOn(placeholderService, 'getTemplate');
-                spyOn(placeholderService, 'getClassName');
             }
         ]);
     });
@@ -38,7 +37,6 @@ describe('When use decorator to disable ngPlaceholderDirective', () => {
 
         expect(placeholderConfigService.isEnabled).toHaveBeenCalled();
         expect(placeholderService.getTemplate).toHaveBeenCalled();
-        expect(placeholderService.getClassName).toHaveBeenCalled();
     });
 
     it('Should not call placeholderService methods', () => {
@@ -49,7 +47,6 @@ describe('When use decorator to disable ngPlaceholderDirective', () => {
 
         expect(placeholderConfigService.isEnabled).toHaveBeenCalled();
         expect(placeholderService.getTemplate).not.toHaveBeenCalled();
-        expect(placeholderService.getClassName).not.toHaveBeenCalled();
     });
 
 });

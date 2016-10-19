@@ -28,13 +28,11 @@ describe('When use PlaceholderConfigProvider', () => {
             expect(placeholderConfigProvider.addConfig).toBeDefined();
             expect(placeholderConfigProvider.setConfigs).toBeDefined();
             expect(placeholderConfigProvider.setDefaultConfig).toBeDefined();
-            expect(placeholderConfigProvider.setCustomClass).toBeDefined();
             expect(placeholderConfigProvider.enable).toBeDefined();
             expect(placeholderConfigProvider.disable).toBeDefined();
         });
 
         it('Should have public methods to get configurations during runtime', () => {
-            expect(placeholderConfigService.getClassName).toBeDefined();
             expect(placeholderConfigService.getDefaultTemplate).toBeDefined();
             expect(placeholderConfigService.getTemplates).toBeDefined();
             expect(placeholderConfigService.isEnabled).toBeDefined();
@@ -50,10 +48,6 @@ describe('When use PlaceholderConfigProvider', () => {
 
         it('Should return an empty array with no custom configurations', () => {
             expect(placeholderConfigService.getTemplates()).toEqual([]);
-        });
-
-        it('Should return an empty array with no custom configurations', () => {
-            expect(placeholderConfigService.getClassName()).toEqual('ng-cloak');
         });
 
         it('Should return an empty array with no custom configurations', () => {
@@ -90,7 +84,6 @@ describe('When use PlaceholderConfigProvider with configuraitons', () => {
                     template_repeats: 5
                 });
 
-                placeholderConfigProvider.setCustomClass('custom-class');
                 placeholderConfigProvider.setDefaultConfig({
                     template_id: 'custom-default',
                     template_html: '<p>Custom default</p>'
@@ -132,10 +125,6 @@ describe('When use PlaceholderConfigProvider with configuraitons', () => {
                 template_repeats: 5
             }
         ]);
-    });
-
-    it('Should return custom class to hide elements', () => {
-        expect(placeholderConfigService.getClassName()).toEqual('custom-class');
     });
 
     it('Should be disable', () => {

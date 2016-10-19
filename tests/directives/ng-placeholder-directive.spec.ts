@@ -1,12 +1,12 @@
 describe('When use decorator to disable ngPlaceholderDirective', () => {
 
-    interface INPScope extends ng.IRootScopeService {
-        templateId?: string;
-        templateRepeats?: string;
-        showUntil?: string;
+    interface ITestScope extends ng.IScope {
+        placeholderId?: string;
+        placeholderRepeats?: string;
+        placeholderShowUntil?: string;
     }
 
-    let $scope: INPScope;
+    let $scope: ITestScope;
     let $compile: ng.ICompileService;
     let placeholderConfigProvider: Placeholder.IPlaceholderConfigProvider;
     let placeholderConfigService: Placeholder.IPlaceholderConfigService;
@@ -41,25 +41,24 @@ describe('When use decorator to disable ngPlaceholderDirective', () => {
         expect(element.length).toBe(1);
         expect(element.find('p').length).toBe(1);
         expect(element.find('p').text()).toBe('Loading...');
-        expect(element.find('label').length).toBe(1);
-        expect(element.find('label').hasClass('ng-cloak')).toBeTruthy();
+        expect(element.find('label').length).toBe(0);
     });
 
     it('Should create directive with default template', () => {
-        var element = $compile('<div><ng-placeholder show-until="{{showUntil}}"><label></lable></ng-placeholder></div>')($scope);
+        var element = $compile('<div><ng-placeholder placeholder-show-until="{{placeholderShowUntil}}"><label></lable></ng-placeholder></div>')($scope);
         $scope.$apply();
 
         expect(element.length).toBe(1);
         expect(element.find('p').length).toBe(1);
         expect(element.find('p').text()).toBe('Loading...');
+        expect(element.find('label').length).toBe(0);
 
-        $scope.showUntil = 'true';
+        $scope.placeholderShowUntil = 'true';
         $scope.$apply();
 
         expect(element.length).toBe(1);
         expect(element.find('p').length).toBe(0);
         expect(element.find('label').length).toBe(1);
-        expect(element.find('label').hasClass('ng-cloak')).toBeFalsy();
     });
 
 });

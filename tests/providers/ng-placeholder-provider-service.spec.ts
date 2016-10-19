@@ -38,22 +38,11 @@ describe('When use PlaceholderConfigService', () => {
         expect(obj.isEnabled()).toBeFalsy();
     });
 
-    it('Should init the object with default class template.', () => {
-        let obj = new PlaceholderConfigService([], { template_id: 'default', template_html: 'html' }, true);
-        expect(obj.getClassName()).toEqual('ng-cloak');
-    });
-
-    it('Should init the object with custom class template.', () => {
-        let obj = new PlaceholderConfigService([], { template_id: 'default', template_html: 'html' }, true, 'custom-class');
-        expect(obj.getClassName()).toEqual('custom-class');
-    });
-
     it('Should init the object with custom class template.', () => {
         let obj = new PlaceholderConfigService(undefined, undefined);
 
         expect(obj.getTemplates().length).toBe(0);
         expect(obj.getTemplates() instanceof Array).toBeTruthy();
         expect(obj.getTemplates()).toEqual([]);
-        expect(obj.getClassName()).toEqual('ng-cloak');
     });
 });

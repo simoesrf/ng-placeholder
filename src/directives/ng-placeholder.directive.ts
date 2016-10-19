@@ -5,7 +5,7 @@ export function PlaceholderDirective(
 
     return {
         restrict: 'AE',
-        priority: 2001,
+        transclude: 'element',
         link: function (
             scope: ng.IScope,
             element: ng.IRootElementService,
@@ -13,20 +13,21 @@ export function PlaceholderDirective(
             controller: ng.IController,
             transclude: ng.ITranscludeFunction
         ) {
-            const className: string = placeholderService.getClassName();
-            const template_id: string = attributes.templateId;
-            const template_repeats: number = parseInt(attributes.templateRepeats, 10);
-            let template: JQuery = placeholderService.getTemplate(template_id, template_repeats);
+            const id = attributes.placeholderId;
+            const repeats = parseInt(attributes.placeholderRepeats, 10) || 1;
+            const template: JQuery = placeholderService.getTemplate(id, repeats);
 
-            $animate.addClass(element, className);
             $animate.enter(template, null, element);
 
-            attributes.$observe('showUntil', (value: string) => {
+            attributes.$observe('placeholderShowUntil', (value: string) => {
                 if (value === 'true') {
-                    $animate.leave(template);
-                    $animate.removeClass(element, className);
+                    transclude((clone) => {
+                        $animate.leave(template);
+                        $animate.enter(clone, null, element);
+                    });
                 }
             });
+
 
         }
     }

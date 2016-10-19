@@ -4,11 +4,10 @@ export class PlaceholderConfigService implements Placeholder.IPlaceholderConfigS
     private enable: boolean;
     private className: string;
 
-    constructor(configs: Array<Placeholder.IConfigModel> = [], defaultConfig: Placeholder.IConfigModel, enable: boolean = true, className: string = 'ng-cloak') {
+    constructor(configs: Array<Placeholder.IConfigModel> = [], defaultConfig: Placeholder.IConfigModel, enable: boolean = true) {
         this.configs = configs;
         this.default = defaultConfig;
         this.enable = enable;
-        this.className = className;
     }
 
     getTemplates(): Array<Placeholder.IConfigModel> {
@@ -17,10 +16,6 @@ export class PlaceholderConfigService implements Placeholder.IPlaceholderConfigS
 
     getDefaultTemplate(): Placeholder.IConfigModel {
         return this.default;
-    }
-
-    getClassName(): string {
-        return this.className;
     }
 
     isEnabled(): boolean {

@@ -5,11 +5,9 @@ export class PlaceholderProvider implements Placeholder.IPlaceholderConfigProvid
     private configs: Array<Placeholder.IConfigModel>;
     private defaultConfig: Placeholder.IConfigModel;
     private active: boolean = true;
-    private customClass: string;
 
     constructor() {
         this.configs = new Array();
-        this.customClass = 'ng-cloak';
         this.defaultConfig = {
             template_id: 'default',
             template_html: '<p>Loading...</p>',
@@ -25,10 +23,6 @@ export class PlaceholderProvider implements Placeholder.IPlaceholderConfigProvid
         this.configs = this.configs.concat(configs);
     }
 
-    setCustomClass(className: string): void {
-        this.customClass = className;
-    }
-
     setDefaultConfig(defaultConfig: Placeholder.IConfigModel): void {
         this.defaultConfig = defaultConfig;
     }
@@ -42,6 +36,6 @@ export class PlaceholderProvider implements Placeholder.IPlaceholderConfigProvid
     }
 
     $get(): Placeholder.IPlaceholderConfigService {
-        return new PlaceholderConfigService(this.configs, this.defaultConfig, this.active, this.customClass);
+        return new PlaceholderConfigService(this.configs, this.defaultConfig, this.active);
     }
 }

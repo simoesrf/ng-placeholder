@@ -13,7 +13,6 @@ describe('When use PlaceholderService', () => {
             'ngPlaceholderConfigProvider',
             (_PlaceholderConfigProvider_: Placeholder.IPlaceholderConfigProvider) => {
                 placeholderConfigProvider = _PlaceholderConfigProvider_;
-                placeholderConfigProvider.setCustomClass('custom-class');
                 placeholderConfigProvider.addConfig({
                     template_id: 'test',
                     template_html: '<p>This is a unit test</p>'
@@ -38,11 +37,12 @@ describe('When use PlaceholderService', () => {
     });
 
     it('Should return the template with repeated 1 time', () => {
-        let template = placeholderService.getTemplate('test');
+        let template = placeholderService.getTemplate('test', 1);
+
         expect(template.length).toBe(1);
         expect(template[0].innerHTML).toBe('This is a unit test');
 
-        template = placeholderService.getTemplate('teste');
+        template = placeholderService.getTemplate('teste', 1);
         expect(template.length).toBe(1);
         expect(template[0].innerHTML).toBe('Loading...');
     });
@@ -59,9 +59,5 @@ describe('When use PlaceholderService', () => {
         expect(template_3[0].innerHTML).toBe('This is a unit test');
         expect(template_3[1].innerHTML).toBe('This is a unit test');
         expect(template_3[2].innerHTML).toBe('This is a unit test');
-    });
-
-    it('Should return class name', () => {
-        expect(placeholderService.getClassName()).toBe('custom-class');
     });
 });

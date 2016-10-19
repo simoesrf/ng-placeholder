@@ -5,16 +5,16 @@ module.exports = function (config) {
       {
         pattern: './node_modules/angular/angular.js',
         watched: false
-      },
-      {
+      }, {
         pattern: './node_modules/angular-mocks/angular-mocks.js',
-        watched: false },
-      {
+        watched: false
+      }, {
         pattern: './src/**/*.ts',
-        watched: true },
-      {
+        watched: true
+      }, {
         pattern: './tests/**/*.ts',
-        watched: true }
+        watched: true
+      }
     ],
     preprocessors: {
       '**/*.ts': ['karma-typescript']

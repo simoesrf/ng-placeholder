@@ -2,36 +2,31 @@ export class PlaceholderService implements Placeholder.IPlaceholderService {
 
     private configs: Array<Placeholder.ICompiledConfigModel>;
     private defaultConfig: Placeholder.ICompiledConfigModel;
-    private className: string;
 
     constructor($templateCache: ng.ITemplateCacheService, placeholderConfigs: Placeholder.IPlaceholderConfigService) {
         const defaultConfig = placeholderConfigs.getDefaultTemplate();
-        const compiledConfigs = this.compileConfigs(placeholderConfigs.getTemplates(), $templateCache);
         const compiledDefaultConfigs = this.buildConfig(defaultConfig.template_id, defaultConfig.template_html, defaultConfig.template_repeats);
 
-        this.configs = compiledConfigs;
+        this.configs = this.compileConfigs(placeholderConfigs.getTemplates(), $templateCache);
         this.defaultConfig = compiledDefaultConfigs;
-        this.className = placeholderConfigs.getClassName();
     }
 
     private getTemplateHtml(template_path: string, templateCache: ng.ITemplateCacheService): string {
         return templateCache.get<string>(template_path);
     }
 
-    private repeatDefaultTemplate(template_html: string, template_repeat: number): string {
-        let html: string = angular.copy(template_html);
-        template_repeat = template_repeat - 1;
+    private repeatTemplate(template_html: string, template_repeat: number): string {
+        let template = '';
 
         for (let index = 0; index < template_repeat; index++) {
-            html = html + template_html;
+            template = template + template_html;
         }
-
-        return html;
+        return template;
     }
 
     private buildConfig(template_id: string, template_html: string, template_repeat: number): Placeholder.ICompiledConfigModel {
 
-        const template = this.repeatDefaultTemplate(template_html, template_repeat);
+        const template = this.repeatTemplate(template_html, template_repeat);
 
         return {
             template_id: template_id,
@@ -64,14 +59,8 @@ export class PlaceholderService implements Placeholder.IPlaceholderService {
         return compiledConfigs;
     }
 
-    private repeatTemplate(config: Placeholder.ICompiledConfigModel, template_repeats: number): JQuery {
-        if (config.template_repeat === template_repeats || angular.isUndefined(template_repeats)) {
-            return config.template_compiled;
-        }
-
-        const template = this.repeatDefaultTemplate(config.template_html, template_repeats);
-
-        return angular.element(template);
+    private isRepeatTemplate(config: Placeholder.ICompiledConfigModel, template_repeats: number): boolean {
+        return !(config.template_repeat === template_repeats || angular.isUndefined(template_repeats));
     }
 
     public getTemplate(template_id: string, template_repeats: number): JQuery {
@@ -80,18 +69,13 @@ export class PlaceholderService implements Placeholder.IPlaceholderService {
 
         self.configs.forEach(function configIterator(config: Placeholder.ICompiledConfigModel) {
             if (config.template_id === template_id) {
-                template = self.repeatTemplate(config, template_repeats);
+                template = angular.element(self.repeatTemplate(config.template_html, template_repeats));
                 return;
             }
         });
 
         return angular.copy(template);
     }
-
-    public getClassName(): string {
-        return this.className;
-    }
-
 }
 
 PlaceholderService.$inject = ['$templateCache', 'ngPlaceholderConfig'];

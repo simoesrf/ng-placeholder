@@ -67,7 +67,6 @@
 	        function PlaceholderProvider() {
 	            this.active = true;
 	            this.configs = new Array();
-	            this.customClass = 'ng-cloak';
 	            this.defaultConfig = {
 	                template_id: 'default',
 	                template_html: '<p>Loading...</p>',
@@ -80,9 +79,6 @@
 	        PlaceholderProvider.prototype.setConfigs = function (configs) {
 	            this.configs = this.configs.concat(configs);
 	        };
-	        PlaceholderProvider.prototype.setCustomClass = function (className) {
-	            this.customClass = className;
-	        };
 	        PlaceholderProvider.prototype.setDefaultConfig = function (defaultConfig) {
 	            this.defaultConfig = defaultConfig;
 	        };
@@ -93,7 +89,7 @@
 	            this.active = false;
 	        };
 	        PlaceholderProvider.prototype.$get = function () {
-	            return new ng_placeholder_config_service_provider_1.PlaceholderConfigService(this.configs, this.defaultConfig, this.active, this.customClass);
+	            return new ng_placeholder_config_service_provider_1.PlaceholderConfigService(this.configs, this.defaultConfig, this.active);
 	        };
 	        return PlaceholderProvider;
 	    }());
@@ -108,23 +104,18 @@
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_RESULT__ = function (require, exports) {
 	    "use strict";
 	    var PlaceholderConfigService = (function () {
-	        function PlaceholderConfigService(configs, defaultConfig, enable, className) {
+	        function PlaceholderConfigService(configs, defaultConfig, enable) {
 	            if (configs === void 0) { configs = []; }
 	            if (enable === void 0) { enable = true; }
-	            if (className === void 0) { className = 'ng-cloak'; }
 	            this.configs = configs;
 	            this.default = defaultConfig;
 	            this.enable = enable;
-	            this.className = className;
 	        }
 	        PlaceholderConfigService.prototype.getTemplates = function () {
 	            return this.configs;
 	        };
 	        PlaceholderConfigService.prototype.getDefaultTemplate = function () {
 	            return this.default;
-	        };
-	        PlaceholderConfigService.prototype.getClassName = function () {
-	            return this.className;
 	        };
 	        PlaceholderConfigService.prototype.isEnabled = function () {
 	            return this.enable;
@@ -144,25 +135,22 @@
 	    var PlaceholderService = (function () {
 	        function PlaceholderService($templateCache, placeholderConfigs) {
 	            var defaultConfig = placeholderConfigs.getDefaultTemplate();
-	            var compiledConfigs = this.compileConfigs(placeholderConfigs.getTemplates(), $templateCache);
 	            var compiledDefaultConfigs = this.buildConfig(defaultConfig.template_id, defaultConfig.template_html, defaultConfig.template_repeats);
-	            this.configs = compiledConfigs;
+	            this.configs = this.compileConfigs(placeholderConfigs.getTemplates(), $templateCache);
 	            this.defaultConfig = compiledDefaultConfigs;
-	            this.className = placeholderConfigs.getClassName();
 	        }
 	        PlaceholderService.prototype.getTemplateHtml = function (template_path, templateCache) {
 	            return templateCache.get(template_path);
 	        };
-	        PlaceholderService.prototype.repeatDefaultTemplate = function (template_html, template_repeat) {
-	            var html = angular.copy(template_html);
-	            template_repeat = template_repeat - 1;
+	        PlaceholderService.prototype.repeatTemplate = function (template_html, template_repeat) {
+	            var template = '';
 	            for (var index = 0; index < template_repeat; index++) {
-	                html = html + template_html;
+	                template = template + template_html;
 	            }
-	            return html;
+	            return template;
 	        };
 	        PlaceholderService.prototype.buildConfig = function (template_id, template_html, template_repeat) {
-	            var template = this.repeatDefaultTemplate(template_html, template_repeat);
+	            var template = this.repeatTemplate(template_html, template_repeat);
 	            return {
 	                template_id: template_id,
 	                template_html: template_html,
@@ -187,26 +175,19 @@
 	            });
 	            return compiledConfigs;
 	        };
-	        PlaceholderService.prototype.repeatTemplate = function (config, template_repeats) {
-	            if (config.template_repeat === template_repeats || angular.isUndefined(template_repeats)) {
-	                return config.template_compiled;
-	            }
-	            var template = this.repeatDefaultTemplate(config.template_html, template_repeats);
-	            return angular.element(template);
+	        PlaceholderService.prototype.isRepeatTemplate = function (config, template_repeats) {
+	            return !(config.template_repeat === template_repeats || angular.isUndefined(template_repeats));
 	        };
 	        PlaceholderService.prototype.getTemplate = function (template_id, template_repeats) {
 	            var self = this;
 	            var template = self.defaultConfig.template_compiled;
 	            self.configs.forEach(function configIterator(config) {
 	                if (config.template_id === template_id) {
-	                    template = self.repeatTemplate(config, template_repeats);
+	                    template = angular.element(self.repeatTemplate(config.template_html, template_repeats));
 	                    return;
 	                }
 	            });
 	            return angular.copy(template);
-	        };
-	        PlaceholderService.prototype.getClassName = function () {
-	            return this.className;
 	        };
 	        return PlaceholderService;
 	    }());
@@ -224,18 +205,18 @@
 	    function PlaceholderDirective($animate, placeholderService) {
 	        return {
 	            restrict: 'AE',
-	            priority: 2001,
+	            transclude: 'element',
 	            link: function (scope, element, attributes, controller, transclude) {
-	                var className = placeholderService.getClassName();
-	                var template_id = attributes.templateId;
-	                var template_repeats = parseInt(attributes.templateRepeats, 10);
-	                var template = placeholderService.getTemplate(template_id, template_repeats);
-	                $animate.addClass(element, className);
+	                var id = attributes.placeholderId;
+	                var repeats = parseInt(attributes.placeholderRepeats, 10) || 1;
+	                var template = placeholderService.getTemplate(id, repeats);
 	                $animate.enter(template, null, element);
-	                attributes.$observe('showUntil', function (value) {
+	                attributes.$observe('placeholderShowUntil', function (value) {
 	                    if (value === 'true') {
-	                        $animate.leave(template);
-	                        $animate.removeClass(element, className);
+	                        transclude(function (clone) {
+	                            $animate.leave(template);
+	                            $animate.enter(clone, null, element);
+	                        });
 	                    }
 	                });
 	            }
