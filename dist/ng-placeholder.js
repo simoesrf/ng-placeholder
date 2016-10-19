@@ -48,11 +48,11 @@
 	    "use strict";
 	    var Placeholder;
 	    (function (Placeholder) {
-	        angular.module('ng-placeholder', []);
-	        angular.module('ng-placeholder').provider('ngPlaceholderConfig', ng_placeholder_provider_1.PlaceholderProvider);
-	        angular.module('ng-placeholder').service('ngPlaceholderService', ng_placeholder_service_1.PlaceholderService);
-	        angular.module('ng-placeholder').directive('ngPlaceholder', ng_placeholder_directive_1.PlaceholderDirective);
-	        angular.module('ng-placeholder').decorator('ngPlaceholderDirective', ng_placeholder_directive_decorator_1.PlaceholderDirectiveDecorator);
+	        angular.module('ngPlaceholder', []);
+	        angular.module('ngPlaceholder').provider('ngPlaceholderConfig', ng_placeholder_provider_1.PlaceholderProvider);
+	        angular.module('ngPlaceholder').service('ngPlaceholderService', ng_placeholder_service_1.PlaceholderService);
+	        angular.module('ngPlaceholder').directive('ngPlaceholder', ng_placeholder_directive_1.PlaceholderDirective);
+	        angular.module('ngPlaceholder').decorator('ngPlaceholderDirective', ng_placeholder_directive_decorator_1.PlaceholderDirectiveDecorator);
 	    })(Placeholder = exports.Placeholder || (exports.Placeholder = {}));
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
