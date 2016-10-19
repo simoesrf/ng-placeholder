@@ -207,7 +207,7 @@
 	            restrict: 'AE',
 	            transclude: 'element',
 	            link: function (scope, element, attributes, controller, transclude) {
-	                var id = attributes.placeholderId;
+	                var id = attributes.ngPlaceholder;
 	                var repeats = parseInt(attributes.placeholderRepeats, 10) || 1;
 	                var template = placeholderService.getTemplate(id, repeats);
 	                $animate.enter(template, null, element);

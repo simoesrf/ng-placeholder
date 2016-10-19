@@ -13,7 +13,7 @@ export function PlaceholderDirective(
             controller: ng.IController,
             transclude: ng.ITranscludeFunction
         ) {
-            const id = attributes.placeholderId;
+            const id = attributes.ngPlaceholder;
             const repeats = parseInt(attributes.placeholderRepeats, 10) || 1;
             const template: JQuery = placeholderService.getTemplate(id, repeats);
 

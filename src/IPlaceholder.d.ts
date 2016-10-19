@@ -34,7 +34,7 @@ declare namespace Placeholder {
     }
 
     export interface INPScope extends ng.IAttributes {
-        placeholderId: string;
+        ngPlaceholder: string;
         placeholderRepeats: string;
         placeholderShowUntil: string;
     }
