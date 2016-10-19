@@ -3,7 +3,7 @@
 A simple directive that place a template while a specific directive loads.
 
 ### Status
-[![Build Status](https://travis-ci.org/rfskitles/ng-placeholder.svg?branch=master)](https://travis-ci.org/rfskitles/ng-placeholder) [![codecov](https://codecov.io/gh/rfskitles/ng-placeholder/branch/master/graph/badge.svg)](https://codecov.io/gh/rfskitles/ng-placeholder)[![npm (scoped)](https://img.shields.io/npm/v/@cycle/core.svg)](https://github.com/rfskitles/ng-placeholder)
+[![Build Status](https://travis-ci.org/rfskitles/ng-placeholder.svg?branch=master)](https://travis-ci.org/rfskitles/ng-placeholder) [![codecov](https://codecov.io/gh/rfskitles/ng-placeholder/branch/master/graph/badge.svg)](https://codecov.io/gh/rfskitles/ng-placeholder)
 
 
 ### Configuration
