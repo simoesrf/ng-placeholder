@@ -60,16 +60,9 @@ angular.module('your-app').config(['ngPlaceholderConfigProvider', function (plac
         template_path: './path/to/template.html'
     });
 
-    // Enable module
-    placeholderConfigProvider.enable();
-
     // Disable module
     placeholderConfigProvider.disable();
 
-    /* Define custom class to hide directive template
-     * If you do not define it, ng-cloak class will be used as default
-     */
-    placeholderConfigProvider.setCustomClass('my-custom-class');
 }]);
 ```
 
@@ -94,7 +87,7 @@ angular.module('your-app').directive('yourDirective', [
             },
             controllerAs: 'ctrl',
             template: `
-                <div ng-placeholder template-id="templateid3" show-until="{{ctrl.isReady}}">
+                <div ng-placeholder="templateid3" placeholder-show-until="{{ctrl.isReady}}">
                     Div content that should be present.
                 </div>`
         }
