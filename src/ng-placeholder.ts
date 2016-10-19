@@ -4,13 +4,13 @@ import { PlaceholderDirective } from './directives/ng-placeholder.directive';
 import { PlaceholderDirectiveDecorator } from './directives/ng-placeholder.directive.decorator';
 
 export module Placeholder {
-    angular.module('ng-placeholder', []);
+    angular.module('ngPlaceholder', []);
 
-    angular.module('ng-placeholder').provider('ngPlaceholderConfig', PlaceholderProvider);
+    angular.module('ngPlaceholder').provider('ngPlaceholderConfig', PlaceholderProvider);
 
-    angular.module('ng-placeholder').service('ngPlaceholderService', PlaceholderService);
+    angular.module('ngPlaceholder').service('ngPlaceholderService', PlaceholderService);
 
-    angular.module('ng-placeholder').directive('ngPlaceholder', PlaceholderDirective);
+    angular.module('ngPlaceholder').directive('ngPlaceholder', PlaceholderDirective);
 
-    angular.module('ng-placeholder').decorator('ngPlaceholderDirective', PlaceholderDirectiveDecorator);
+    angular.module('ngPlaceholder').decorator('ngPlaceholderDirective', PlaceholderDirectiveDecorator);
 }
