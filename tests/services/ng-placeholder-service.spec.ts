@@ -7,7 +7,7 @@ describe('When use PlaceholderService', () => {
     let $templateCache: ng.ITemplateCacheService;
 
     beforeEach(() => {
-        angular.mock.module('ng-placeholder');
+        angular.mock.module('ngPlaceholder');
 
         angular.mock.module([
             'ngPlaceholderConfigProvider',

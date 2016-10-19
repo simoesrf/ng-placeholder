@@ -5,7 +5,7 @@ describe('When use decorator to disable ngPlaceholderDirective', () => {
     let placeholderConfigService: Placeholder.IPlaceholderConfigService;
     let placeholderService: Placeholder.IPlaceholderService;
     let spyConfigServiceIsEnable: jasmine.Spy;
-    beforeEach(angular.mock.module('ng-placeholder'));
+    beforeEach(angular.mock.module('ngPlaceholder'));
 
     beforeEach(() => {
         inject([

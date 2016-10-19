@@ -2,7 +2,7 @@ describe('When use PlaceholderConfigProvider', () => {
     let placeholderConfigProvider: Placeholder.IPlaceholderConfigProvider;
     let placeholderConfigService: Placeholder.IPlaceholderConfigService;
 
-    beforeEach(angular.mock.module('ng-placeholder'));
+    beforeEach(angular.mock.module('ngPlaceholder'));
 
     beforeEach(() => {
         angular.mock.module([
@@ -61,7 +61,7 @@ describe('When use PlaceholderConfigProvider with configuraitons', () => {
     let placeholderConfigProvider: Placeholder.IPlaceholderConfigProvider;
     let placeholderConfigService: Placeholder.IPlaceholderConfigService;
 
-    beforeEach(angular.mock.module('ng-placeholder'));
+    beforeEach(angular.mock.module('ngPlaceholder'));
 
     beforeEach(() => {
         angular.mock.module([

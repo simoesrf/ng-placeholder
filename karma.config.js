@@ -21,6 +21,12 @@ module.exports = function (config) {
     },
     frameworks: ['jasmine', 'karma-typescript'],
     browsers: ['PhantomJS'],
-    reporters: ['dots', 'karma-typescript']
+    reporters: ['dots', 'karma-typescript', 'coverage'],
+    coverageReporter: {
+      reporters: [
+        { type: 'lcovonly', subdir: '.' },
+        { type: 'json', subdir: '.' },
+      ]
+    },
   });
 };

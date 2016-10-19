@@ -24,15 +24,19 @@ export class PlaceholderService implements Placeholder.IPlaceholderService {
         return template;
     }
 
+    private repeatTemplateAndConverToJQLite(template_html: string, template_repeat: number) {
+        return angular.element(this.repeatTemplate(template_html, template_repeat));
+    }
+
     private buildConfig(template_id: string, template_html: string, template_repeat: number): Placeholder.ICompiledConfigModel {
 
-        const template = this.repeatTemplate(template_html, template_repeat);
+        const template: JQuery = this.repeatTemplateAndConverToJQLite(template_html, template_repeat);
 
         return {
             template_id: template_id,
             template_html: template_html,
             template_repeat: template_repeat,
-            template_compiled: angular.element(template)
+            template_compiled: template
         };
     }
 
@@ -65,16 +69,18 @@ export class PlaceholderService implements Placeholder.IPlaceholderService {
 
     public getTemplate(template_id: string, template_repeats: number): JQuery {
         let self = this;
-        let template: JQuery = self.defaultConfig.template_compiled;
+        let template: JQuery;
+        let config: Placeholder.ICompiledConfigModel;
 
-        self.configs.forEach(function configIterator(config: Placeholder.ICompiledConfigModel) {
+        for (let index = 0; index < this.configs.length; index++) {
+            config = this.configs[index];
             if (config.template_id === template_id) {
-                template = angular.element(self.repeatTemplate(config.template_html, template_repeats));
-                return;
+                return this.isRepeatTemplate(config, template_repeats) ?
+                    this.repeatTemplateAndConverToJQLite(config.template_html, template_repeats) : config.template_compiled;
             }
-        });
+        }
 
-        return angular.copy(template);
+        return angular.copy(template || self.defaultConfig.template_compiled);
     }
 }
 
