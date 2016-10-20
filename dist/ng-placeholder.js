@@ -216,7 +216,6 @@
 	                attributes.$observe('placeholderShowUntil', function (value) {
 	                    if (value === 'true') {
 	                        transclude(function (clone) {
-	                            console.log(clone);
 	                            $animate.leave(template);
 	                            $animate.enter(clone, element.parent());
 	                        });

@@ -23,7 +23,6 @@ export function PlaceholderDirective(
             attributes.$observe('placeholderShowUntil', (value: string) => {
                 if (value === 'true') {
                     transclude((clone) => {
-                        console.log(clone);
                         $animate.leave(template);
                         $animate.enter(clone, element.parent());
                     });
