@@ -37,19 +37,19 @@ describe('When use PlaceholderService', () => {
     });
 
     it('Should return the template with repeated 1 time', () => {
-        let template = placeholderService.getTemplate('test', 1);
+        let template = angular.element(placeholderService.getTemplate('test', 1));
 
         expect(template.length).toBe(1);
         expect(template[0].innerHTML).toBe('This is a unit test');
 
-        template = placeholderService.getTemplate('teste', 1);
+        template = angular.element(placeholderService.getTemplate('teste', 1));
         expect(template.length).toBe(1);
         expect(template[0].innerHTML).toBe('Loading...');
     });
 
     it('Should return the template with repeated n times', () => {
-        const template_2 = placeholderService.getTemplate('test', 2);
-        const template_3 = placeholderService.getTemplate('test', 3);
+        const template_2 = angular.element(placeholderService.getTemplate('test', 2));
+        const template_3 = angular.element(placeholderService.getTemplate('test', 3));
 
         expect(template_2.length).toBe(2);
         expect(template_2[0].innerHTML).toBe('This is a unit test');

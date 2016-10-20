@@ -24,13 +24,9 @@ export class PlaceholderService implements Placeholder.IPlaceholderService {
         return template;
     }
 
-    private repeatTemplateAndConverToJQLite(template_html: string, template_repeat: number) {
-        return angular.element(this.repeatTemplate(template_html, template_repeat));
-    }
-
     private buildConfig(template_id: string, template_html: string, template_repeat: number): Placeholder.ICompiledConfigModel {
 
-        const template: JQuery = this.repeatTemplateAndConverToJQLite(template_html, template_repeat);
+        const template: string = this.repeatTemplate(template_html, template_repeat);
 
         return {
             template_id: template_id,
@@ -67,16 +63,16 @@ export class PlaceholderService implements Placeholder.IPlaceholderService {
         return !(config.template_repeat === template_repeats || angular.isUndefined(template_repeats));
     }
 
-    public getTemplate(template_id: string, template_repeats: number): JQuery {
+    public getTemplate(template_id: string, template_repeats: number): string {
         let self = this;
-        let template: JQuery;
+        let template: string;
         let config: Placeholder.ICompiledConfigModel;
 
         for (let index = 0; index < this.configs.length; index++) {
             config = this.configs[index];
             if (config.template_id === template_id) {
                 return this.isRepeatTemplate(config, template_repeats) ?
-                    this.repeatTemplateAndConverToJQLite(config.template_html, template_repeats) : config.template_compiled;
+                    this.repeatTemplate(config.template_html, template_repeats) : config.template_compiled;
             }
         }
 

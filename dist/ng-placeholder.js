@@ -149,11 +149,8 @@
 	            }
 	            return template;
 	        };
-	        PlaceholderService.prototype.repeatTemplateAndConverToJQLite = function (template_html, template_repeat) {
-	            return angular.element(this.repeatTemplate(template_html, template_repeat));
-	        };
 	        PlaceholderService.prototype.buildConfig = function (template_id, template_html, template_repeat) {
-	            var template = this.repeatTemplateAndConverToJQLite(template_html, template_repeat);
+	            var template = this.repeatTemplate(template_html, template_repeat);
 	            return {
 	                template_id: template_id,
 	                template_html: template_html,
@@ -189,7 +186,7 @@
 	                config = this.configs[index];
 	                if (config.template_id === template_id) {
 	                    return this.isRepeatTemplate(config, template_repeats) ?
-	                        this.repeatTemplateAndConverToJQLite(config.template_html, template_repeats) : config.template_compiled;
+	                        this.repeatTemplate(config.template_html, template_repeats) : config.template_compiled;
 	                }
 	            }
 	            return angular.copy(template || self.defaultConfig.template_compiled);

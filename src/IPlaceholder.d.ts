@@ -26,11 +26,11 @@ declare namespace Placeholder {
         template_id: string;
         template_html: string;
         template_repeat: number;
-        template_compiled: JQuery
+        template_compiled: string
     }
 
     export interface IPlaceholderService {
-        getTemplate(template_id: string, template_repeats: number): JQuery;
+        getTemplate(template_id: string, template_repeats: number): string;
     }
 
     export interface INPScope extends ng.IAttributes {
