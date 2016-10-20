@@ -1,4 +1,5 @@
 export function PlaceholderDirective(
+    $compile: ng.ICompileService,
     $animate: ng.animate.IAnimateService,
     placeholderService: Placeholder.IPlaceholderService
 ): ng.IDirective {
@@ -15,15 +16,16 @@ export function PlaceholderDirective(
         ) {
             const id = attributes.ngPlaceholder;
             const repeats = parseInt(attributes.placeholderRepeats, 10) || 1;
-            const template: JQuery = placeholderService.getTemplate(id, repeats);
+            const template = $compile(placeholderService.getTemplate(id, repeats))(scope);
 
-            $animate.enter(template, null, element);
+            $animate.enter(template, element.parent(), element);
 
             attributes.$observe('placeholderShowUntil', (value: string) => {
                 if (value === 'true') {
                     transclude((clone) => {
+                        console.log(clone);
                         $animate.leave(template);
-                        $animate.enter(clone, null, element);
+                        $animate.enter(clone, element.parent());
                     });
                 }
             });
@@ -33,4 +35,4 @@ export function PlaceholderDirective(
     }
 }
 
-PlaceholderDirective.$inject = ['$animate', 'ngPlaceholderService'];
+PlaceholderDirective.$inject = ['$compile', '$animate', 'ngPlaceholderService'];

@@ -9,7 +9,7 @@
   },
   "keyword": [],
   "main": [
-    "dist/ng-placeholder.min.js"
+    "dist/ng-placeholder.js"
   ],
   "ignore": [
     "src",

@@ -149,13 +149,16 @@
 	            }
 	            return template;
 	        };
+	        PlaceholderService.prototype.repeatTemplateAndConverToJQLite = function (template_html, template_repeat) {
+	            return angular.element(this.repeatTemplate(template_html, template_repeat));
+	        };
 	        PlaceholderService.prototype.buildConfig = function (template_id, template_html, template_repeat) {
-	            var template = this.repeatTemplate(template_html, template_repeat);
+	            var template = this.repeatTemplateAndConverToJQLite(template_html, template_repeat);
 	            return {
 	                template_id: template_id,
 	                template_html: template_html,
 	                template_repeat: template_repeat,
-	                template_compiled: angular.element(template)
+	                template_compiled: template
 	            };
 	        };
 	        PlaceholderService.prototype.compileConfigs = function (configs, $templateCache) {
@@ -180,14 +183,16 @@
 	        };
 	        PlaceholderService.prototype.getTemplate = function (template_id, template_repeats) {
 	            var self = this;
-	            var template = self.defaultConfig.template_compiled;
-	            self.configs.forEach(function configIterator(config) {
+	            var template;
+	            var config;
+	            for (var index = 0; index < this.configs.length; index++) {
+	                config = this.configs[index];
 	                if (config.template_id === template_id) {
-	                    template = angular.element(self.repeatTemplate(config.template_html, template_repeats));
-	                    return;
+	                    return this.isRepeatTemplate(config, template_repeats) ?
+	                        this.repeatTemplateAndConverToJQLite(config.template_html, template_repeats) : config.template_compiled;
 	                }
-	            });
-	            return angular.copy(template);
+	            }
+	            return angular.copy(template || self.defaultConfig.template_compiled);
 	        };
 	        return PlaceholderService;
 	    }());
@@ -202,20 +207,21 @@
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_RESULT__ = function (require, exports) {
 	    "use strict";
-	    function PlaceholderDirective($animate, placeholderService) {
+	    function PlaceholderDirective($compile, $animate, placeholderService) {
 	        return {
 	            restrict: 'AE',
 	            transclude: 'element',
 	            link: function (scope, element, attributes, controller, transclude) {
 	                var id = attributes.ngPlaceholder;
 	                var repeats = parseInt(attributes.placeholderRepeats, 10) || 1;
-	                var template = placeholderService.getTemplate(id, repeats);
-	                $animate.enter(template, null, element);
+	                var template = $compile(placeholderService.getTemplate(id, repeats))(scope);
+	                $animate.enter(template, element.parent(), element);
 	                attributes.$observe('placeholderShowUntil', function (value) {
 	                    if (value === 'true') {
 	                        transclude(function (clone) {
+	                            console.log(clone);
 	                            $animate.leave(template);
-	                            $animate.enter(clone, null, element);
+	                            $animate.enter(clone, element.parent());
 	                        });
 	                    }
 	                });
@@ -223,7 +229,7 @@
 	        };
 	    }
 	    exports.PlaceholderDirective = PlaceholderDirective;
-	    PlaceholderDirective.$inject = ['$animate', 'ngPlaceholderService'];
+	    PlaceholderDirective.$inject = ['$compile', '$animate', 'ngPlaceholderService'];
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 
