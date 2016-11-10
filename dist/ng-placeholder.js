@@ -217,7 +217,7 @@
 	                    if (value === 'true') {
 	                        transclude(function (clone) {
 	                            $animate.leave(template);
-	                            $animate.enter(clone, element.parent());
+	                            $animate.enter(clone, element.parent(), element);
 	                        });
 	                    }
 	                });

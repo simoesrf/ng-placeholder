@@ -24,7 +24,7 @@ export function PlaceholderDirective(
                 if (value === 'true') {
                     transclude((clone) => {
                         $animate.leave(template);
-                        $animate.enter(clone, element.parent());
+                        $animate.enter(clone, element.parent(), element);
                     });
                 }
             });
