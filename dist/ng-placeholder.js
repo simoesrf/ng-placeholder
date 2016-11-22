@@ -209,16 +209,27 @@
 	            restrict: 'AE',
 	            transclude: 'element',
 	            link: function (scope, element, attributes, controller, transclude) {
+	                var childScope;
+	                var previousElement;
 	                var id = attributes.ngPlaceholder;
 	                var repeats = parseInt(attributes.placeholderRepeats, 10) || 1;
 	                var template = $compile(placeholderService.getTemplate(id, repeats))(scope);
 	                $animate.enter(template, element.parent(), element);
 	                attributes.$observe('placeholderShowUntil', function (value) {
 	                    if (value === 'true') {
-	                        transclude(function (clone) {
+	                        transclude(function (clone, newScope) {
+	                            childScope = newScope;
+	                            previousElement = clone;
 	                            $animate.leave(template);
 	                            $animate.enter(clone, element.parent(), element);
 	                        });
+	                    }
+	                    if (value === 'false' && childScope) {
+	                        childScope.$destroy();
+	                        childScope = null;
+	                        $animate.leave(previousElement);
+	                        previousElement = null;
+	                        $animate.enter(template, element.parent(), element);
 	                    }
 	                });
 	            }

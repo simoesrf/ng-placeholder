@@ -14,6 +14,8 @@ export function PlaceholderDirective(
             controller: ng.IController,
             transclude: ng.ITranscludeFunction
         ) {
+            let childScope: ng.IScope;
+            let previousElement: ng.IRootElementService;
             const id = attributes.ngPlaceholder;
             const repeats = parseInt(attributes.placeholderRepeats, 10) || 1;
             const template = $compile(placeholderService.getTemplate(id, repeats))(scope);
@@ -22,14 +24,22 @@ export function PlaceholderDirective(
 
             attributes.$observe('placeholderShowUntil', (value: string) => {
                 if (value === 'true') {
-                    transclude((clone) => {
+                    transclude((clone, newScope) => {
+                        childScope = newScope;
+                        previousElement = clone;
                         $animate.leave(template);
                         $animate.enter(clone, element.parent(), element);
                     });
                 }
+                if (value === 'false' && childScope) {
+                    childScope.$destroy();
+                    childScope = null;
+
+                    $animate.leave(previousElement);
+                    previousElement = null;
+                    $animate.enter(template, element.parent(), element);
+                }
             });
-
-
         }
     }
 }
