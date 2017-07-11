@@ -1,6 +1,6 @@
 {
   "name": "ng-placeholder",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "A simple directive that place a template while a specific directive loads.",
   "main": "./dist/ng-placeholder.js",
   "typings": "./dist/ng-placeholder.d.ts",
@@ -42,7 +42,7 @@
     "webpack-uglify-js-plugin": "^1.1.9"
   },
   "scripts": {
-    "postinstall": "typings install",
+    "install:typings": "typings install",
     "start": "webpack -w",
     "dist": "webpack",
     "test": "karma start karma.config.js --single-run",
