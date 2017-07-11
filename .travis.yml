@@ -7,6 +7,7 @@ cache:
         - typings
 install:
     - npm install
+    - npm run typings:install
 script:
     - npm test
 after_success:
