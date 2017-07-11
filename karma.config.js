@@ -20,7 +20,7 @@ module.exports = function (config) {
       '**/*.ts': ['karma-typescript']
     },
     frameworks: ['jasmine', 'karma-typescript'],
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
     reporters: ['dots', 'karma-typescript', 'coverage'],
     coverageReporter: {
       reporters: [
