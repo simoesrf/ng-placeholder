@@ -1,6 +1,6 @@
 {
   "name": "ng-placeholder",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A simple directive that place a template while a specific directive loads.",
   "main": "./dist/ng-placeholder.js",
   "typings": "./dist/ng-placeholder.d.ts",
