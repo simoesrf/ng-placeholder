@@ -1,4 +1,5 @@
-import {PlaceholderService} from '../../src/services/ng-placeholder.service';
+import * as angular from 'angular';
+import { PlaceholderService } from '../../src/services/PlaceholderService';
 
 describe('When use PlaceholderService', () => {
     let placeholderConfigProvider: Placeholder.IPlaceholderConfigProvider;

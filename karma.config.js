@@ -1,11 +1,11 @@
 module.exports = function (config) {
   config.set({
-    // basePath: '.',
     files: [
       {
         pattern: './node_modules/angular/angular.js',
         watched: false
-      }, {
+      },
+      {
         pattern: './node_modules/angular-mocks/angular-mocks.js',
         watched: false
       }, {

@@ -1,7 +1,8 @@
-import { PlaceholderProvider } from './providers/ng-placeholder.provider';
-import { PlaceholderService } from './services/ng-placeholder.service';
-import { PlaceholderDirective } from './directives/ng-placeholder.directive';
-import { PlaceholderDirectiveDecorator } from './directives/ng-placeholder.directive.decorator';
+import * as angular from 'angular';
+import { PlaceholderProvider } from './providers/PlaceholderProvider';
+import { PlaceholderService } from './services/PlaceholderService';
+import { PlaceholderDirective } from './directives/PlaceholderDirective';
+import { PlaceholderDirectiveDecorator } from './directives/PlaceholderDirectiveDecorator';
 
 export module Placeholder {
     angular.module('ngPlaceholder', []);

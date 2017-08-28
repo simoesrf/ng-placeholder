@@ -1,5 +1,3 @@
-/// <reference path="../typings/index.d.ts" />
-
 declare namespace Placeholder {
     export interface IConfigModel {
         template_id: string;
