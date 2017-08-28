@@ -1,4 +1,4 @@
-import { PlaceholderConfigService } from './ng-placeholder-config-service.provider';
+import { PlaceholderConfigService } from './PlaceholderConfigService';
 
 export class PlaceholderProvider implements Placeholder.IPlaceholderConfigProvider {
 

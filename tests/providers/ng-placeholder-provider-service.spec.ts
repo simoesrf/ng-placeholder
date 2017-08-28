@@ -1,4 +1,4 @@
-import { PlaceholderConfigService } from '../../src/providers/ng-placeholder-config-service.provider';
+import { PlaceholderConfigService } from '../../src/providers/PlaceholderConfigService';
 
 describe('When use PlaceholderConfigService', () => {
     it('Should init the object with empty template array.', () => {

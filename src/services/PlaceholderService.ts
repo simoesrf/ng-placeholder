@@ -1,3 +1,5 @@
+import * as angular from 'angular';
+
 export class PlaceholderService implements Placeholder.IPlaceholderService {
 
     private configs: Array<Placeholder.ICompiledConfigModel>;
